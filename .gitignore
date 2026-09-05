@@ -1,0 +1,4 @@
+node_modules/
+.nocta-execute/
+*.log
+.DS_Store

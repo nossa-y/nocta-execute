@@ -1,0 +1,19 @@
+{
+  "name": "nocta-execute",
+  "version": "1.0.0",
+  "description": "A self-contained Claude Code skill that drives your real Chrome to do tasks for you, invoked via /nocta-execute.",
+  "type": "module",
+  "bin": {
+    "agent-browser": "skill/nocta-execute/bin/agent-browser.mjs"
+  },
+  "scripts": {
+    "postinstall": "node -e \"process.exit(0)\""
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "playwright": "^1.48.0"
+  },
+  "license": "MIT"
+}
