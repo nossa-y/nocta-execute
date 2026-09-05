@@ -1,29 +1,30 @@
 # One-paste setup
 
-Open Claude Code (in any folder) and paste the prompt below. Your agent will install the
-skill and verify it.
+Open Claude Code (in any folder) and paste the prompt below. Your agent will clone,
+install, and verify the skill for you - no manual steps.
 
 ---
 
 ```
-Set up the "nocta-execute" browser-agent skill on my machine from its GitHub repo.
+Set up the "nocta-execute" browser-agent skill on this machine from GitHub. Work
+autonomously and only stop to ask me something if step 1 fails.
 
-Do this:
-1. Clone https://github.com/nossa-y/nocta-execute into ~/tools/nocta-execute
-   (create the folder if needed; if it already exists, git pull instead).
-2. Run `bash install.sh` in that directory. It installs Playwright, symlinks the skill
-   into ~/.claude/skills/nocta-execute, and puts the `agent-browser` command on PATH.
-3. Confirm Node.js is 18+ and Google Chrome is installed; if either is missing, tell me
-   how to install it and stop.
-4. Smoke-test it headless without touching my real Chrome windows:
+1. Check prerequisites: Node.js 18+ (`node -v`) and Google Chrome installed. If either
+   is missing, tell me exactly how to install it for my operating system, then stop.
+2. Clone https://github.com/nossa-y/nocta-execute into ~/tools/nocta-execute. If that
+   folder already exists, `git pull` in it instead of cloning.
+3. From that directory run: bash install.sh
+   It installs Playwright, symlinks the skill into ~/.claude/skills/nocta-execute, and
+   tries to put the `agent-browser` command on my PATH. If the PATH step is skipped for
+   permissions, that is fine - the skill also calls the script by its full path.
+4. Verify it drives a browser, headless so no window pops up:
      AGENT_BROWSER_HEADED=0 AGENT_BROWSER_SESSION=setuptest agent-browser open example.com
      AGENT_BROWSER_HEADED=0 AGENT_BROWSER_SESSION=setuptest agent-browser snapshot
      AGENT_BROWSER_HEADED=0 AGENT_BROWSER_SESSION=setuptest agent-browser close
-   The snapshot should list a "Learn more" link. Then report success.
-5. Tell me to restart Claude Code so it loads the new skill, and give me three example
-   commands I can try with /nocta-execute.
-
-Don't ask me questions unless step 3 fails - just set it up and report back.
+   The snapshot must list a "Learn more" link. If `agent-browser` is not found, use
+   `node ~/.claude/skills/nocta-execute/bin/agent-browser.mjs <command>` for these checks.
+5. Report the result, tell me to restart Claude Code so it loads the new skill, and give
+   me three example commands to try with /nocta-execute.
 ```
 
 ---
